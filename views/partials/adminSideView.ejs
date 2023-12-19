@@ -1,0 +1,102 @@
+<aside class="navbar-aside" id="offcanvas_aside">
+    <div class="aside-top">
+        <a href="dashboard" class="brand-wrap">
+           <h2>Xodeyo</h2>
+        </a>
+        <div>
+            <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+        </div>
+    </div>
+    <nav>
+        <ul class="menu-aside">
+            <li class="menu-item">
+                <a class="menu-link searchable" href="dashboard"> <i class="icon material-icons md-home"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="userslist"><i class="icon material-icons md-person"></i>
+                    <span class="text">Users</span>
+                </a>
+             
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="resellerslist"> <i class="icon material-icons md-store"></i>
+                    <span class="text">Resellers</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="category"> <i class="icon material-icons md-add_box"></i>
+                    <span class="text">Category</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="productlist"> <i class="icon material-icons md-shopping_bag"></i>
+                    <span class="text">Products</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="page-transactions-1.html"> <i class="icon material-icons md-shopping_cart"></i>
+                    <span class="text">Orders</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link searchable" href="#"> <i class="icon material-icons md-account_balance_wallet"></i>
+                    <span class="text">Transactions</span>
+                </a>
+            </li>
+            
+        </ul>
+        <hr>
+        <ul class="menu-aside">
+            <li class="menu-item">
+                <a class="menu-link searchable" href="#"> <i class="icon material-icons md-settings"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+           
+        </ul>
+        <br>
+        <br>
+    </nav>
+</aside>
+
+
+<script>
+    const currentURL = window.location.href;
+    
+    // Select all menu links
+    const menuLinks = document.querySelectorAll('.menu-link');
+    
+    // Loop through the menu links
+    menuLinks.forEach((link) => {
+        const menuItem = link.parentElement;
+    
+        if (currentURL.includes(link.getAttribute('href'))) {
+            // Add the "active" class to the parent menu item
+            menuItem.classList.add('active');
+    
+            // If it's a sub-menu item, also highlight the parent menu item
+            if (menuItem.classList.contains('submenu')) {
+                menuItem.closest('.menu-item').classList.add('active');
+            }
+        }
+    });
+    const currentURLd = window.location.pathname;
+    const menuItems = document.querySelectorAll('.menu-item');
+    
+    menuItems.forEach((menuItem) => {
+        const links = menuItem.querySelectorAll('.menu-link');
+    
+        links.forEach((link) => {
+            if (currentURLd.includes(link.getAttribute('href'))) {
+                menuItem.classList.add('active');
+    
+                // If it's a submenu link, also highlight the parent menu item
+                if (menuItem.classList.contains('has-submenu')) {
+                    menuItem.querySelector('.submenu').style.display = 'block'; // Show the submenu if necessary
+                }
+            }
+        });
+    });
+    </script>

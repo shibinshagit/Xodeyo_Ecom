@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="adminAssets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="adminAssets/css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        #image-preview {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .thumbnail {
+            margin: 5px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+  <%-include('../partials/adminSideView.ejs')%>
+    <main class="main-wrap">
+        <%-include('../partials/adminHeader.ejs')%>
+        <section class="content-main">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Product</h2>
+                        <% if (typeof message !=='undefined') { %>
+                            <p style="color: rgb(0, 128, 85);"><%= message %></p>
+                          <% } %>
+                    </div>
+                </div>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5>Media</h5>
+                                </div>
+                                <div class="card-body d-flex">
+                
+                                    <div class="m-4">
+                                        <label for="image1">Image 1:</label>
+                                        <img id="imgView<%= 0 %>" src="assets/imgs/productImages/<%= products.images[0] %>" alt="" class="border rounded mt-3"><br>
+                                        <div class="d-flex justify-content-around">
+                                        <label class="edit-icon text-primary" for="fileInput1">
+                                      
+                                            <i class="fa fa-pencil" ></i> Add
+                                        </label>
+                                      
+                                        <div class="edit-icon text-danger" onclick="deleteImage(event, 0)">
+                                            <a href="#" class="text-muted"> <i class="fa fa-close" aria-hidden="true"></i> Delete</a>
+                                        </div>
+                
+                                    </div>
+                                        <input id="fileInput1" class="form-control hidden" accept="image/*" name="image1" type="file" onchange="viewImage(event, 0)" value="">
+                                    </div>
+                                    <br>
+                                    <div class="m-4 ">
+                                    <label for="image2">Image 2:</label>
+                                    <img id="imgView<%= 1 %>" src="assets/imgs/productImages/<%= products.images[1] %>"alt="" class="border rounded mt-3">
+                                    <div class="d-flex justify-content-around">
+                                        <label class="edit-icon text-primary" for="fileInput2">
+                                      
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Add
+                                        </label>
+                                        <div class="edit-icon text-danger" onclick="deleteImage(event, 1)">
+                                            <a href="#" class="text-muted"> <i class="fa fa-close" aria-hidden="true"></i> Delete</a>
+                                        </div>
+                                    </div>
+                
+                                    <input id="fileInput2"  class="form-control hidden" name="image2" accept="image/*"  type="file" onchange="viewImage(event,1)" value="">
+                                </div>
+                                    <br>
+                                    <div class="m-4 ">
+                                    <label for="image3">Image 3:</label>
+                                    <img id="imgView<%= 2 %>" src="assets/imgs/productImages/<%= products.images[2] %>" alt="" class="border rounded mt-3">
+                                    <div class="d-flex justify-content-around">
+                                        <label class="edit-icon text-primary" for="fileInput3">
+                                      
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Add
+                                        </label>
+                                        <div class="edit-icon text-danger" onclick="deleteImage(event, 2)">
+                                            <a href="#" class="text-muted"> <i class="fa fa-close" aria-hidden="true"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                    <input id="fileInput3" class="form-control hidden" accept="image/*" name="image3"  type="file" onchange="viewImage(event,2)" value="">
+                                </div>
+                                    <br>
+                                    <div class="m-4  ">
+                                    <label for="image4">Image 4:</label>
+                                    <img id="imgView<%= 3 %>" src="assets/imgs/productImages/<%= products.images[3] %>" alt="" class="border rounded mt-3">
+                                    <div class="d-flex justify-content-around">
+                                        <label class="edit-icon text-primary" for="fileInput4">
+                                      
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> Add
+                                        </label>
+                                        <div class="edit-icon text-danger" onclick="deleteImage(event, 3)">
+                                            <a href="#" class="text-muted"> <i class="fa fa-close" aria-hidden="true"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                    <input id="fileInput4" class="form-control hidden" accept="image/*" name="image4"  type="file" onchange="viewImage(event,3)" value="">
+                                </div>
+                                    <br>
+                
+                                    
+                
+                                    
+                            
+                                </div>
+                       
+                                
+                                
+                            </div>
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>2. Details</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" value="<%= products.productName %>" name="productName" placeholder="Type here" class="form-control">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Description</label>
+                                        <textarea  name="productDescription" placeholder="" class="form-control" rows="4"><%= products.productDescription %></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Category</label>
+                                        <select name="productCategory" class="form-select">
+                                            <option style="display:none;"><%= products.productCategory %></option>
+                                            <% Categories.length > 0 ? Categories.map(category => { %>
+                                                <option><%= category.category %></option>
+                                            <% }) : (Categories.length === 0 ? '<option> no Categories available </option>' : '') %>
+                                        </select>   
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Status</label>
+                                        <select name="status" class="form-select">
+                                            <option style="display:none;"><%= products.status %></option>
+                                            <option>In Stock</option>
+                                            <option>Coming Soon</option>
+                                        </select>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Pricing</h6>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">Orginal Price</label>
+                                        <input name="price" value="<%= products.price %>" type="text" placeholder="₹0.00" class="form-control">
+                                        <input type="hidden" name="productId" value="<%=products._id%>" required>
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">Offer Price</label>
+                                        <input value="<%= products.discountRate %>" name="discountRate" type="text" placeholder="₹0.00" class="form-control">
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">Resellers Price</label>
+                                        <input value="<%= products.resellersPrice %>" name="resellersPrice" type="text" placeholder="₹0.00" class="form-control">
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">Stock</label>
+                                        <input value="<%= products.stock %>" name="stock" type="text" placeholder="0" class="form-control">
+                                    </div>
+                                </div> <!-- col.// -->
+                                   
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Sizes</h6>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">
+                                            <input name="size" value="S" type="checkbox"> S
+                                        </label>
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">
+                                            <input name="size" value="M" type="checkbox"> M
+                                        </label>
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">
+                                            <input name="size" value="L" type="checkbox"> L
+                                        </label>
+                                    </div>
+                                </div> <!-- col.// -->
+                                <div class="col-md-2">
+                                    <div class="mb-4">
+                                        <label class="form-label">
+                                            <input name="size" value="XL" type="checkbox"> XL
+                                        </label>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            
+                            <hr class="mb-4 mt-0">
+
+
+
+
+
+                            <button type="submit" class="btn btn-md rounded font-sm hover-up float-end" onclick="checkFileCount()">Publish</button>
+
+                           
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+               
+           
+        </form>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©,XodeyoDesigns.
+                </div>
+                <div class="col-sm-6">
+                  
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="adminAssets/js/vendors/select2.min.js"></script>
+    <script src="adminAssets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Main Script -->
+    <script src="adminAssets/js/main.js" type="text/javascript"></script>
+
+                      
+<script>
+  
+    // }
+
+
+    function viewImage(event, imageIndex) {
+    const imgView = document.getElementById(`imgView${imageIndex}`);
+    imgView.src = URL.createObjectURL(event.target.files[0]);
+}
+
+function deleteImage(event, imageIndex) {
+
+    const imgView = document.getElementById(`imgView${imageIndex}`);
+    imgView.src = "../../public/assets/images/productImages/placeholder.jpg";
+
+
+    const fileInput = document.getElementById(`fileInput${imageIndex + 1}`);
+    fileInput.value = "";
+}
+
+    
+</script>
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html>

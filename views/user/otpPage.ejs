@@ -1,0 +1,126 @@
+<%- include('../layouts/head.ejs') %>
+
+<body>
+<%- include('../layouts/header.ejs') %>
+
+
+
+
+
+
+<!-- banner -->
+<div id="onloadModal" tabindex="-1" aria-labelledby="onloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body" >
+          <div class="row">
+            <div class="col-md-6 right-side">
+   <style>
+body {
+    background-color: black;
+}
+.modal-body {
+    background-color: rgb(184, 253, 253);
+}
+
+   </style>
+
+                <div id="otp-section" class="">
+                    <% if (typeof message !== 'undefined') { %>
+                      <p style="color: green;"><%= message %></p>
+                    <% } %>
+                    <div id="otp-container">
+                      <form action="/otppage" method="post">
+                      <h2>Enter OTP</h2>
+                      <input style="width: 50%;" type="number" name="enteredotp" id="otpinput" oninput="limitLength(this, 4)" />
+                      <p id="timer"><span id="timer-countdown">Time remaining: 60 seconds</span></p>
+                      <button type="submit" id="submit-btn">Submit</button>
+                      <button type="button" class="btn btn-primary btn-block" id="resend-btn" onclick="startTimer()" style="display: none;width: 100%;" >Resend OTP</button>
+                    </form>
+                    </div>
+                  </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<Script>
+      function limitLength(element, maxLength) {
+        if (element.value.length > maxLength) {
+            element.value = element.value.slice(0, maxLength);
+        }
+    }
+
+    let timer;
+
+    function startTimer() {
+        let timeInSeconds = 20;
+        const countdown = document.getElementById('timer-countdown');
+        const submitBtn = document.getElementById('submit-btn');
+        const resendBtn = document.getElementById('resend-btn');
+        const otpinput = document.getElementById('otpinput');
+
+        countdown.innerText = 'Time remaining: ' + timeInSeconds + ' seconds';
+
+        timer = setInterval(() => {
+            timeInSeconds--;
+
+            if (timeInSeconds < 1) {
+                clearInterval(timer);
+                countdown.innerText = 'Time Expired!';
+                submitBtn.style.display = 'none';
+                resendBtn.style.display = 'block';
+                otpinput.style.display = 'none';
+                
+            } else {
+                countdown.innerText = 'Time remaining: ' + timeInSeconds + ' seconds';
+            }
+        }, 1000);
+    }
+    document.addEventListener("DOMContentLoaded", startTimer);
+
+</Script>
+
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:25:49 GMT -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
