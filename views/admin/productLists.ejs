@@ -39,34 +39,33 @@
 
 
             </div>
-            <div class="card">
-                <div class="row align-items-center mx-2 my-4">
-                    <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                      <div class="custom_select">
-                        <select class="form-select" id="filterSelect">
-                            <option value="all">Product status</option>
-                            <option value="all">All product</option>
-                            <option value="unblocked">Listed</option>
-                            <option value="blocked">Unlisted</option>
-                            <option value="instock">Instock</option>
-                            <option value="outofstock">Out of stock</option>
-                            
+            <header class="card-header">
+                <div class="row gx-3">
+                    <div class="col-lg-4 col-md-6 me-auto">
+                        <input type="text" placeholder="Search..." class="form-control">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-6">
+                       <select class="form-select" id="filterSelect">
+                          <option value="all"style="display:none;">status</option>
+                          <option value="all">All product</option>
+                          <option value="unblocked">Listed</option>
+                          <option value="blocked">Unlisted</option>
+                          <option value="instock">Instock</option>
+                          <option value="outofstock">Out of stock</option>
+                          
+                      </select>
+                        
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-6">
+                        <select class="form-select" id="perPageSelect" name="perPage">
+                            <option value="5"style="display:none;">Show</option>
+                            <option value="10">Show 10</option>
+                            <option value="20">Show 20</option>
+                            <option value="<%=  %>">Show All</option>
                         </select>
                     </div>
-                  </div>
-                    
-                      <div class="col-md-2 col-6">
-                          <div class="custom_select">
-                              <select class="form-select select-nice">
-                                  <option selected>Sort by Date</option>
-                                  
-                                  <option>Latest</option>
-                                  <option>Earliest</option>
-                                  
-                              </select>
-                          </div>
-                      </div>
-                  </div>
+                </div>
+            </header> <!-- card-header end// -->
                 <div class="card-body">
                     <div class="row">
 

@@ -30,7 +30,7 @@ const loadResellers = async (req, res) => {
         filter.isBlocked = false;
       } else {
       }
-  
+     
       const totalUsers = await User.countDocuments(filter);
       const totalPages = Math.ceil(totalUsers / perPage);
       const usersData = await User.find(filter)

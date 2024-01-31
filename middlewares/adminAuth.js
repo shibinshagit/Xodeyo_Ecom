@@ -1,6 +1,6 @@
 const isLogin = async (req, res, next) => {
   try {
-      if (!req.session.admin_id) res.redirect('401-notAuthorized');
+      if (!req.session.admin_id) res.redirect('/admin');
       else next();
   } catch (error) {
       console.error(error.message);

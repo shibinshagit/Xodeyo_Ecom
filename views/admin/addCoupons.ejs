@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>admin Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="adminAssets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="adminAssets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+
+
+
+
+<%- include('../partials/adminSideView.ejs') %>
+    <main class="main-wrap">
+
+        <%- include('../partials/adminHeader.ejs') %>
+
+
+
+            <form action="" method="post" id="coupon-form" onsubmit="return couponValidateForm()">
+                <section class="content-main">
+                    <div class="row">
+                        <div class="col-9">
+
+                            <div class="content-header">
+                                <h2 class="content-title">Add New Coupon</h2>
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-12">
+
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label for="category_name" class="form-label">Coupon code</label>
+                                        <input type="text" name="couponCode" placeholder="Type here"
+                                            class="form-control" id="coupon_code">
+                                        <div class="error-message" style="color: red;" id="code-error"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="category_name" class="form-label">Discount</label>
+                                        <input type="number" name="discount" placeholder="Type here"
+                                            class="form-control" id="discount">
+                                        <div class="error-message" style="color: red;" id="discount-error"></div>
+                                    </div>
+
+                                    <!-- <div class="mb-4">
+                                        <div class="form-group">
+                                            <label class="form-label mt-3" for="limit">Limit</label>
+                                            <input type="number" class="form-control" id="limit" name="limit">
+                                            <div class="error-message" style="color: red;" id="limit-error"></div>
+
+                                        </div>
+                                    </div> -->
+
+
+
+                                </div>
+                            </div> <!-- card end// -->
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <div class="form-group">
+                                            <label class="form-label mt-3" for="DiscountType">Discount Type</label>
+                                            <select class="form-control" id="DiscountType" name="DiscountType">
+                                                <option value="fixed">Fixed</option>
+                                                <option value="percentage">Percentage</option>
+                                            </select>
+                                            <div class="error-message" style="color: red;" id="discount_type-error">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex">
+
+                                        <div class="mb-4 col-6">
+                                            <div class="form-group">
+                                                <label class="form-label mt-3" for="limit">Min Cart Amount</label>
+                                                <input type="number" class="form-control" id="minCartAmt"
+                                                    name="minCartAmt">
+                                                <div class="error-message" style="color: red;" id="minCartAmt-error">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="mb-4 col-6">
+                                            <label class="form-label mt-3" for="limit">Max Redeemable Amount</label>
+                                            <input type="number" class="form-control" id="maxRedeemableAmt"
+                                                name="maxRedeemableAmt">
+                                            <div class="error-message" style="color: red;" id="maxRedeemableAmt-error">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Category Div -->
+
+
+                                    <div class="mb-2">
+                                        <label for="category_name" class="form-label">Expiry</label>
+                                        <input type="date" name="expiryDate" placeholder="Type here"
+                                            class="form-control" id="expiryDate">
+                                        <div class="error-message" style="color: red;" id="expiryDate-error"></div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- card end// -->
+                        </div>
+                    </div>
+                    <div id="invalid">
+                        <% if (typeof message !=='undefined' && message) { %>
+                            <p style="color: red;" id="message">
+                                <%= message %>
+                            </p>
+                            <% } %>
+                                          
+                    </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-4">
+                        <input type="submit" value="Add Coupon" class="btn btn-md rounded font-sm hover-up">
+                    </div>
+
+
+                </section> <!-- content-main end// -->
+            </form>
+
+<footer class="main-footer font-xs">
+    <div class="row pb-30 pt-15">
+        <div class="col-sm-6">
+            <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+            document.write(new Date().getFullYear())
+            </script> ©, XodeyoDesigns
+        </div>
+        <div class="col-sm-6">
+            <div class="text-sm-end">
+                All rights reserved
+            </div>
+        </div>
+    </div>
+</footer>
+</main>
+<script src="adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
+<script src="adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="adminAssets/js/vendors/select2.min.js"></script>
+<script src="adminAssets/js/vendors/perfect-scrollbar.js"></script>
+<script src="adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
+<!-- Main Script -->
+<script src="adminAssets/js/main.js" type="text/javascript"></script>
+
+  <!-- Add this script tag in your HTML file -->
+  <script>
+    function couponValidateForm() {
+        let isValid = true;
+
+        // Reset error messages
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(function (errorMessage) {
+            errorMessage.textContent = '';
+        });
+
+        // Validation for couponCode
+        const couponCode = document.getElementById('coupon_code').value.trim();
+        if (!couponCode) {
+            isValid = false;
+            document.getElementById('code-error').textContent = 'Coupon code is required.';
+        }
+
+        // Validation for discount
+        const discount = document.getElementById('discount').value.trim();
+        if (!discount) {
+            isValid = false;
+            document.getElementById('discount-error').textContent = 'Discount is required.';
+        } else if (parseFloat(discount) < 0) {
+            isValid = false;
+            document.getElementById('discount-error').textContent = 'Discount cannot be negative.';
+        }
+
+        // // Validation for limit
+        // const limit = document.getElementById('limit').value.trim();
+        // if (!limit) {
+        //     isValid = false;
+        //     document.getElementById('limit-error').textContent = 'Limit is required.';
+        // } else if (parseFloat(limit) < 0) {
+        //     isValid = false;
+        //     document.getElementById('limit-error').textContent = 'Limit cannot be negative.';
+        // }
+
+        // Validation for minCartAmt
+        const minCartAmt = document.getElementById('minCartAmt').value.trim();
+        if (!minCartAmt) {
+            isValid = false;
+            document.getElementById('minCartAmt-error').textContent = 'Min Cart Amount is required.';
+        } else if (parseFloat(minCartAmt) < 0) {
+            isValid = false;
+            document.getElementById('minCartAmt-error').textContent = 'Min Cart Amount cannot be negative.';
+        }
+
+        // Validation for maxRedeemableAmt
+        const maxRedeemableAmt = document.getElementById('maxRedeemableAmt').value.trim();
+        if (!maxRedeemableAmt) {
+            isValid = false;
+            document.getElementById('maxRedeemableAmt-error').textContent = 'Max Redeemable Amount is required.';
+        } else if (parseFloat(maxRedeemableAmt) < 0) {
+            isValid = false;
+            document.getElementById('maxRedeemableAmt-error').textContent = 'Max Redeemable Amount cannot be negative.';
+        }
+
+        // Validation for expiryDate
+        const expiryDate = document.getElementById('expiryDate').value.trim();
+        if (!expiryDate) {
+            isValid = false;
+            document.getElementById('expiryDate-error').textContent = 'Expiry date is required.';
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            event.preventDefault(); // This line prevents the form from being submitted
+        }
+
+        return isValid;
+    }
+</script>
+
+</body>
+</html>

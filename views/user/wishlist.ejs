@@ -1,0 +1,108 @@
+<%- include('../layouts/head.ejs') %>
+<body>
+    <%- include('../layouts/header.ejs') %>  
+    
+    <main class="main">
+       
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center">
+                                <thead>
+                                    <tr class="main-heading">
+                                        <th scope="col" colspan="2">Product</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Action</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0;i< wishlist.length;i++) {%>
+                                    <tr>
+                                        <td class="image product-thumbnail"><img src="assets/imgs/productImages/<%= wishlist[i].product.images[0] %>" alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <h5 class="product-name"><a href="shop-product-right.html"><%= wishlist[i].product.productName %></a></h5>
+                                            <!-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
+                                            </p> -->
+                                        </td>
+                                        <td class="price" data-title="Price"><span><%= wishlist[i].product.discountRate %> </span></td>
+                                        <td class="text-right" data-title="Cart">
+                                            <button class="btn btn-sm" onclick="addToCartFromWishlist(event, '<%= wishlist[i].product._id %>')">
+                                                <i class="fi-rs-shopping-bag mr-5"></i>Add to cart
+                                              </button>
+                                        </td>
+                                        <td class="action" data-title="Remove"><a href="#"  onclick="dltwishitem('<%= wishlist[i].product._id %>');"><i class="fi-rs-trash"></i></a></td>
+                                    </tr>
+              <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+ 
+    <%- include('../layouts/footer.ejs') %>
+
+    
+<script>
+    async function addToCartFromWishlist(event, productId) {
+      // Prevent the default button behavior
+      event.preventDefault();
+  
+      // Set the quantity (you can modify this based on your requirements)
+      const quantity = 1;
+  
+      // Construct the URL with the product ID and quantity
+      const url = `/addtoCart?id=${productId}&qty=${quantity}`;
+  
+      try {
+        // Use fetch to send a request to the server
+        const response = await fetch(url, {
+          method: 'GET', // or 'POST' depending on your server endpoint
+        });
+  
+        // Check if the response was successful (status code 200-299)
+        if (response.ok) {
+          const data = await response.json(); // Assuming the response is JSON
+          handleCartResponse(data);
+        } else {
+          handleCartError();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        handleCartError();
+      }
+    }
+  
+function handleCartResponse(data) {
+  // Save the current scroll position
+  var scrollPosition = window.scrollY || window.scrollTop || document.getElementsByTagName("html")[0].scrollTop;
+
+  // Display success SweetAlert
+  Swal.fire({
+    icon: 'success',
+    title: 'Product added to cart',
+    showConfirmButton: false,
+    timer: 1500,
+  });
+
+  setTimeout(function () {
+    location.reload(); 
+  }, 1500);
+}
+
+    function handleCartError() {
+      // Display error SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to add to cart',
+        text: 'Please try again later.',
+        confirmButtonText: 'OK',
+      });
+    }
+  </script>

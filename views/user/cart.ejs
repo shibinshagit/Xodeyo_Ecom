@@ -1,0 +1,108 @@
+<%- include('../layouts/head.ejs') %>
+
+<body>
+<%- include('../layouts/header.ejs') %>
+    <main class="main">
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <%if(cart.length > 0 ){%>
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center clean">
+                               
+                                <thead>
+                                    <tr class="main-heading">
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Subtotal</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (let i=0; i < cart.length; i++) { %>
+                                    <tr>
+                                        <td class="image product-thumbnail"><img src="assets/imgs/productImages/<%= cart[i].product.images[0] %>" alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <h5 class="product-name"><a href="shop-product-right.html"><%= cart[i].product.productName %></a></h5>
+                                            <!-- <p class="font-xs"><%= cart[i].product.productName %><br> distingy magndapibus.
+                                            </p> -->
+                                        </td>
+                                        <td class="price" data-title="Price"><span><%= cart[i].product.price %></span></td>
+                                        <td class="text-center" data-title="Stock">
+                                            <div class="advanced-detail-qty">
+                                              <div class="cart-product-quantity">
+                                                <div class="quantity-input-container">
+                                                  <input type="number" class="form-control quantity-input" value="<%= cart[i].quantity %>" />
+                                                 
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                          
+                                        <td class="text-right" data-title="Cart">
+                                            <span><%= productotal[i] %></span>
+                                        </td>
+                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash" onclick="deleteCartItem('<%= cart[i].product._id %>');"></i></a></td>
+                                    </tr>
+                                    <% } %>
+                                    
+                                    <tr>
+                                        <!-- <td colspan="6" class="text-end">
+                                            <a href="#" class="text-muted"> <i class="fi-rs-trash" ></i> Clear All</a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart-action text-end">
+                            <a class="btn  mr-10 mb-sm-15"><i></i>₹ <%= subtotal %></a>
+                            <a class="btn" href="/checkout"><i class="fi-rs-shopping-bag mr-10"></i>CheckOut</a>
+                        </div>
+                        <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+                       
+                    </div>
+                <%}else{%>
+                    <div class="container d-flex justify-content-center align-items-center"
+                    style="margin-top: 100px; margin-bottom: 100px;">
+                    <div class="text-center">
+                        <i class="fa-solid fa-cart-plus" style="font-size: 40px; margin-top: 70px;"></i>
+                        <h4 class="text-secondary mt-3">Your Cart is currently empty</h4>
+                        <p>Before proceed to checkout you must add some Products to Your cart</p>
+                        <a href="/shop" class="btn btn-outline-primary-2 m-4">Return to Shop</a>
+                    </div>
+                </div>
+                    
+                    <%}%>
+                </div>
+            </div>
+        </section>
+        <style>.advanced-detail-qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-control.quantity-input {
+  width: 60px; /* Adjust the width as needed */
+  text-align: center;
+  margin: 0 10px; /* Adjust the margin as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+
+</style>
+    </main>
+   
+    <%- include('../layouts/footer.ejs') %>

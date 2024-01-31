@@ -1,0 +1,34 @@
+<%- include('../layouts/head.ejs') %>
+<body>
+    <%- include('../layouts/header.ejs') %>
+
+  <section class=" gradient-custom">
+    <div class="container py-5 ">
+      <div class="row d-flex justify-content-center align-items-center ">
+        <div class="col-lg-10 col-xl-8">
+          <div class="" style="border-radius: 10px;">
+            <div class="card-header px-4 py-5 text-center">
+              <i class="fa-solid fa-xmark" style="color: red; font-size: xx-large;"></i>
+
+              <h5 class="text-muted mb-0 text-center mb-5"><span style="font-size: 40px; color: red;">Sorry, Order
+                  Failed</span></h5>
+              <div id="invalid text-center mt-3">
+                <% if (typeof error !=='undefined' && error) { %>
+                  <p style="color: red; font-size: medium;" id="message text-center">
+                    <%= error %>
+                  </p>
+                  <% } %>
+              </div>
+            </div>
+            <div class="card-body p-4 text-center">
+              <div class="d-flex justify-content-center mt-3">
+                <a href="/checkout" class="btn btn-primary">Try Again</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <%- include('../layouts/footer.ejs') %>

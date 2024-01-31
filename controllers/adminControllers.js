@@ -1,11 +1,15 @@
 const User = require('../models/userModels');
+const Order = require('../models/orderModel');
+const Product = require('../models/productModel');
+const Category = require('../models/categoryModel');
 const bcrypt = require('bcrypt');
 
 // load admin------------------------------------------------------------------------------------------------------------------------------
 
 const loadAdmin = async (req, res) => {
     try {
-      res.render('login');
+      const messege = 'enter login credentials'
+      res.render('login',{message:messege});
     } catch (error) {
       console.error(error.message);
     }
@@ -15,6 +19,11 @@ const loadAdmin = async (req, res) => {
 const verifyAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const viewportWidth = parseInt(req.body.screenSize) || 0;
+   
+    if (viewportWidth < 1000) {
+      return res.render('login', { message: "Mobile view Restricted!"});
+  } else {
 
     const user = await User.findOne({ email });
 
@@ -36,6 +45,9 @@ const verifyAdmin = async (req, res) => {
     } else {
       return res.render('login', { message: "Username is incorrect" });
     }
+
+  }
+  
   } catch (error) {
     console.error(`Error in verifyAdmin: ${error.message}`);
     res.status(500).send('Internal Server Error');
@@ -45,18 +57,83 @@ const verifyAdmin = async (req, res) => {
   
 // LoadDashboard------------------------------------------------------------------------------------------------------------------------------------------
 
-  const LoadDashboard = async(req,res)=>{
-    try{
-
+const LoadDashboard = async (req, res) => {
+    try {
+      const [
+        totalRevenue,
+        totalUsers,
+        totalOrders,
+        totalProducts,
+        totalCategories,
+        orders,
+        monthlyEarnings,
+        newUsers,
+      ] = await Promise.all([
+        Order.aggregate([
+          { $match: { paymentStatus: "Payment Successful" } },
+          { $group: { _id: null, totalAmount: { $sum: "$totalAmount" } } },
+        ]),
+        User.countDocuments({ is_blocked: false, is_verified: true }),
+        Order.countDocuments(),
+        Product.countDocuments(),
+        Category.countDocuments(),
+        Order.find().populate("user").limit(10).sort({ orderDate: -1 }),
+        Order.aggregate([
+          {
+            $match: {
+              paymentStatus: "Payment Successful",
+              orderDate: {
+                $gte: new Date(
+                  new Date().getFullYear(),
+                  new Date().getMonth(),
+                  1
+                ),
+              },
+            },
+          },
+          { $group: { _id: null, monthlyAmount: { $sum: "$totalAmount" } } },
+        ]),
+        User.find({ isBlocked: 0, is_verified: 1 })
+          .sort({ date: -1 })
+          .limit(5),
+      ]);
   
-  res.render('adminDashboard');
-   
+      const totalRevenueValue =
+        totalRevenue.length > 0 ? totalRevenue[0].totalAmount : 0;
   
-    }catch(error){
+      const monthlyEarningsValue =
+        monthlyEarnings.length > 0 ? monthlyEarnings[0].monthlyAmount : 0;
+  
+      res.render("adminDashboard", {
+        orders,
+        newUsers,
+        totalRevenue: totalRevenueValue,
+        totalOrders,
+        totalProducts,
+        totalCategories,
+        totalUsers,
+        monthlyEarnings: monthlyEarningsValue,
+      });
+    } catch (error) {
       console.log(error.message);
     }
-  }
-  
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // logout----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const logout = async (req, res) => {

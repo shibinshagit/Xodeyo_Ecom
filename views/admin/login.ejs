@@ -21,23 +21,28 @@
         <section class="content-main mt-80 mb-80">
             <div class="card mx-auto card-login">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Admin Login</h4>
-                    <form method="post">
-                        <% if (typeof message !=='undefined') { %>
-                            <p style="color: rgb(0, 128, 85);"><%= message %></p>
-                          <% } %>
+                    <h4 class="card-title mb-4 text-center"><%= (message === 'Username and password are incorrect!' || message === 'Mobile view Restricted!' || message === 'Username is incorrect' || message === 'Password is incorrect') ? message : 'Admin Login' %>
+                    </h4>
+             
+                      
+                    
+                    <form method="post" onsubmit="return validateForm()">
                         <div class="mb-3">
-                            <input class="form-control" placeholder="Username or email" type="email" name="email">
-                        </div> <!-- form-group// -->
+                            <input class="form-control" placeholder="<%=  message === 'Username is incorrect' ? message : 'Username or email' %>" type="text" name="email" id="emailInput">
+                            <input type="hidden" name="screenSize" id="screenSizeInput" value="">
+                        </div>
+                    
                         <div class="mb-3">
-                            <input class="form-control" placeholder="Password" type="password" name="password">
-                        </div> <!-- form-group// -->
+                            <input class="form-control" placeholder="<%=  message === 'Password is incorrect' ? message : 'Password' %>" type="password" name="password" id="passwordInput" maxlength="6">
+                        </div>
+                    
                         <div class="mb-3">
                             <a href="#" class="d-flex justify-content-center font-sm text-muted">Forgot password?</a>
-                        </div> <!-- form-group form-check .// -->
+                        </div>
+                    
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary w-100"> Login </button>
-                        </div> <!-- form-group// -->
+                            <button type="submit" class="btn btn-primary w-100" onclick="updateScreenSize()"> Login </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -48,6 +53,53 @@
     <script src="adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
     <!-- Main Script -->
     <script src="adminAssets/js/main.js" type="text/javascript"></script>
+
+
+    <script>
+
+function updateScreenSize() {
+        var screenSizeInput = document.getElementById('screenSizeInput');
+        screenSizeInput.value = window.innerWidth + 'px';
+    }
+
+
+
+        function validateForm() {
+            // Get the values of email and password inputs
+            var emailInput = document.getElementById('emailInput');
+            var passwordInput = document.getElementById('passwordInput');
+            var email = emailInput.value;
+            var password = passwordInput.value;
+    
+            // Validate email format (you might want to use a more sophisticated validation)
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var isEmailValid = emailRegex.test(email);
+    
+            // Validate password format (6-digit PIN)
+            var isPasswordValid = /^\d{6}$/.test(password);
+    
+            // Reset styles
+            emailInput.style.border = '1px solid #ced4da';
+            passwordInput.style.border = '1px solid #ced4da';
+    
+            if (!isEmailValid) {
+                // Display error for email
+                emailInput.style.border = '1px solid red';
+                emailInput.placeholder = 'Invalid email format';
+                return false; // Prevent form submission
+            }
+    
+            if (!isPasswordValid) {
+                // Display error for password
+                passwordInput.style.border = '1px solid red';
+                passwordInput.placeholder = 'Invalid password format (6-digit PIN)';
+                return false; // Prevent form submission
+            }
+    
+            return true; // Proceed with form submission
+        }
+    </script>
+
 </body>
 
 

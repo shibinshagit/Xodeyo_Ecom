@@ -11,7 +11,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="adminAssets/imgs/theme/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/favicons/xodeyofav.png">
     <!-- Template CSS -->
     <link href="adminAssets/css/main.css" rel="stylesheet" type="text/css" />
 </head>
@@ -63,6 +63,7 @@
                                     <th>category</th>
                                     <th>Description</th>
                                     <th >Status</th>
+                                    <th >Delete</th>
                                 </tr>
                             </thead>
 
@@ -100,7 +101,15 @@
                                             </a>
                                           <% } %>
                                     </td>
-                                    
+                                    <td class="align-middle">            
+                                        <a href="/admin/dltcategories?id=<%= categories[i]._id.toString() %>" class="delete-link" onclick="event.stopPropagation();">
+                                            <i class="material-icons md-delete_forever "></i>
+                                        </a>
+                                        
+                                </td>
+
+
+
                                 </tr>
                                
                                 <% } %>

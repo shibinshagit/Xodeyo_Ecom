@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Reel Section</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .reel-container {
+            display: flex;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .reel-item {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .reel-item video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 24px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .reel-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="reel-container">
+        <div class="reel-item">
+            <video src="your_video_url_1.mp4" controls></video>
+            <div class="overlay">
+                <span class="play-icon">&#9654;</span> Play
+            </div>
+        </div>
+        <div class="reel-item">
+            <video src="your_video_url_2.mp4" controls></video>
+            <div class="overlay">
+                <span class="play-icon">&#9654;</span> Play
+            </div>
+        </div>
+        <!-- Add more reel items as needed -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reelItems = document.querySelectorAll('.reel-item');
+
+            reelItems.forEach(item => {
+                const video = item.querySelector('video');
+                const overlay = item.querySelector('.overlay');
+
+                item.addEventListener('click', function () {
+                    if (video.paused) {
+                        video.play();
+                        overlay.style.opacity = 0;
+                    } else {
+                        video.pause();
+                        overlay.style.opacity = 1;
+                    }
+                });
+
+                video.addEventListener('ended', function () {
+                    overlay.style.opacity = 1;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -12,7 +12,7 @@ const loadProducts = async (req, res) => {
   try {
     const search = req.query.search || '';
     const page = parseInt(req.query.page) || 1;
-    const perPage = 3;
+    const perPage = 10;
     const status = req.query.status;
 
 

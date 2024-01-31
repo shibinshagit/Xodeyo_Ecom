@@ -1,4 +1,5 @@
 <header class="header-area header-style-1 header-height-2">  
+    
     <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="header-wrap">
@@ -13,8 +14,8 @@
                             <!-- Add a search form -->
                             <li class="search-form">
                                 <form id="searchForm" action="/shop" method="GET">
-                                    <input type="text" name="query" placeholder="Search">
-                                    <button type="submit"><i class="fi-rs-search"></i></button>
+                                    <input type="text" name="search" placeholder="Search">
+                                    <button type="submit" class="exclude-hover"><i class="fi-rs-search"></i></button>
                                 </form>
                             </li>
                         </ul>
@@ -24,27 +25,46 @@
                     <div class="header-action-right">
                         <div class="header-action-2">
                            
+
+
+                            
                             
 
 
                             <% if(!session.user_id) { %>
                                 <ul>
-                                    <li><i class="fi-rs-user left-icons"></i><a href="#" id="loginLink">Log In / Sign Up</a></li>
+                                    <li><i class="fi-rs-user left-icons"></i><a href="" id="loginLink">Log In / Sign Up</a></li>
                                 </ul>
                                
                               <% } else { %>
                                  
                             <div class="header-action-icon-2 left-icons">
-                                <a href="shop-wishlist.html">
+                                <a href="/wishlist">
                                     <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
-                                    <span class="pro-count blue">4</span>
+                                    <span class="pro-count blue"><%= session.wishlistItems %></span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="/cart">
                                     <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count blue">2</span>
+                                    <span class="pro-count blue"><%= session.cartItem %></span>
                                 </a>
+                            </div>
+                            <div class="header-action-icon-3" style="margin-left: 30px;">
+                                
+                                  
+                                        <a href="/userProfile" > <img class="img-xs rounded-circle" src="adminAssets/imgs/userImages/<%= session.userImage %>" alt="User"></a>
+                                        <!-- <div class="dropdown-menu dropdown-menu" aria-labelledby="dropdownAccount">
+                                            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                                            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item text-danger" href="logout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                                        </div> -->
+                                    
+    
                             </div>
                               <% } %>
 
@@ -54,7 +74,15 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
+   <!-- Instagram Story Icons Design -->
+
+   
+
 </header>
+
+
+
