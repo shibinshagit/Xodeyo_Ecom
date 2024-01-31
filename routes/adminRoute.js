@@ -9,7 +9,14 @@ const adminControllers = require('../controllers/adminControllers');
 const rellersController = require('../controllers/rellersController');
 const categoryControllers = require('../controllers/categoryControllers');
 const productControllers = require('../controllers/productControllers');
+const settingsControllers = require('../controllers/settingsControllers');
+const bannerControllers = require('../controllers/bannerControllers');
+const couponControllers = require('../controllers/couponControllers');
+const offerControllers = require('../controllers/offerControllers');
+const checkoutControllers = require('../controllers/checkoutControllers');
+const accountsController = require('../controllers/accountsController');
 
+  
 // category image storage--------------------------------------------------------------------------------------------------------------
 
 const categoryUpload = multer({
@@ -19,7 +26,16 @@ const categoryUpload = multer({
   })
 });
 
+// banner image storage--------------------------------------------------------------------------------------------------------------
 
+const bannerUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, path.join(__dirname, '../public/assets/imgs/bannerImages')),
+    filename: (req, file, cb) => cb(null, `${Date.now()}_${file.originalname}`)
+  })
+});
+
+// product image storage-------------------------------------------------------------------------------------------------------------
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, path.join(__dirname, '../public/assets/imgs/productImages')),
@@ -38,7 +54,7 @@ const uploadFields = upload.fields([
   { name: 'image4', maxCount: 1 },
 ]);
 
-// ...  middlewares-------------------------------------------------------------------
+// ...  Middlewares-------------------------------------------------------------------
 
 adminRoute.use(express.json(),
                express.urlencoded({ extended: true }),
@@ -54,22 +70,24 @@ adminRoute
           .get('/userslist',auth.isLogin,adminControllers.loadUsers)
           .get('/blockuser',adminControllers.blockUser)
           .post('/',adminControllers.verifyAdmin)
-// =====resellers========================================================================================================
+// =====Resellers========================================================================================================
 
 
 adminRoute
           .get('/resellerslist',rellersController.loadResellers)
 
 
-//====categories=====================================================================================================================
+//====Categories=====================================================================================================================
 
 adminRoute
           .get('/category',categoryControllers.loadCategories)
           .get('/createcategories',categoryControllers.createCategories)
           .get('/unlistcategory',categoryControllers.unlistCategory)
+          .get('/dltcategories',categoryControllers.dltCategories)
           .post('/createcategories',categoryUpload.single('file'),categoryControllers.insertCategories)
+         
 
-//=====products==============================================================================================================================
+//=====Products==============================================================================================================================
 adminRoute
           .get('/productlist',productControllers.loadProducts)
           .get('/addproducts',productControllers.addProducts)
@@ -78,6 +96,48 @@ adminRoute
           .get('/dltproduct',productControllers.dltProduct)
           .post('/addproducts',uploadFields,productControllers.insertProduct)
           .post('/editproduct',uploadFields,productControllers.updateProduct)
+
+//=====Banners==============================================================================================================================
+adminRoute
+          .get('/showBanner',bannerControllers.listBanners)
+          .get('/createbanners',bannerControllers.addBanner)
+          .put('/unlistbanner',bannerControllers.unlistBanner)
+          .post('/createbanners',bannerUpload.single('file'),bannerControllers.insertBanner)
+          .delete('/dltbanner',bannerControllers.dltBanner)
+          
+//=====Coupons==============================================================================================================================
+adminRoute
+          .get('/coupon',couponControllers.listCoupons)
+          .get('/createcoupon',couponControllers.addCoupons)
+          .put('/unlistCoupon',couponControllers.unlistCoupon)
+          .post('/createcoupon',couponControllers.insertCoupon)
+          .delete('/dltcoupon',couponControllers.dltCoupon)
+
+//=====Offers==============================================================================================================================
+adminRoute
+          .get('/offers',offerControllers.listOffers)
+          .get('/createoffer',offerControllers.createOffer)
+          .put('/unlistoffer',offerControllers.unlistOffer)
+          .post('/createoffer',offerControllers.insertOffer)
+
+//=====Orders==============================================================================================================================
+adminRoute
+          .get('/orders',checkoutControllers.listOrders)
+
+//=====Transaction==============================================================================================================================
+adminRoute
+          .get('/transaction',accountsController.listTransactions)
+          .get('/orderstatus',accountsController.orderStatus)
+          .get('/orderdetails',accountsController.orderDetails)
+
+//=====Sales==============================================================================================================================
+adminRoute
+          .get('/sales',accountsController.listSales)
+         
+//=====Settings==============================================================================================================================
+adminRoute
+          .get('/settings',settingsControllers.loadSettings)
+      
          
 
 

@@ -1,4 +1,7 @@
+const fs = require('fs');
+const path = require('path');
 const Categories = require('../models/categoryModel');
+const Product = require('../models/productModel');
 
 
 
@@ -62,8 +65,7 @@ const insertCategories = async (req, res) => {
       category: categoryName,
       description: req.body.description,
       image: req.file.filename,
-      isListed: true, // Assuming isListed is a boolean field, you can adjust if it's stored differently
-      discountPercentage: req.body.discountPercentage,
+      isListed: true, 
     }).save();
 
     if (categoryData) {
@@ -81,10 +83,37 @@ const unlistCategory = async (req, res) => {
   try {
     const id = req.query.id;
     const category = await Categories.findById(id);
+    const products = await Product.find({productCategory :category.category});
+  
 
     if (category) {
       category.isListed = !category.isListed;
       await category.save();
+      for (const product of products) {
+        product.isListed = !product.isListed;
+        await product.save();
+      }
+      res.redirect('/admin/category');
+    } else {
+      res.status(404).json({ error: 'Category not found' });
+    }
+  } catch (error) {
+    console.error(`Error in unlistCategory: ${error.message}`);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+// dltCategories------------------------------------------------------------------------------------------------------------------------------
+const dltCategories = async (req, res) => {
+  try {
+    const id = req.query.id;
+    const categoryname = await Categories.findById(id)
+    const products = await Product.find({productCategory :categoryname.category});
+    const category = await Categories.findByIdAndDelete(id);
+   
+    if (category) {
+      products.isListed = false;
+      const imagePath = path.join(__dirname, '../public/assets/imgs/categoryImages', category.image);
+      fs.unlinkSync(imagePath);
       res.redirect('/admin/category');
     } else {
       res.status(404).json({ error: 'Category not found' });
@@ -97,5 +126,5 @@ const unlistCategory = async (req, res) => {
 
 
 module.exports = {
-    loadCategories,createCategories,insertCategories,unlistCategory
+    loadCategories,createCategories,insertCategories,unlistCategory,dltCategories
 }

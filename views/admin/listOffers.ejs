@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="adminAssets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="adminAssets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <%-include('../partials/adminSideView.ejs')%>
+    <main class="main-wrap">
+        <%-include('../partials/adminHeader.ejs')%>
+        <section class="content-main">
+            <div class="content-header">
+                <h2 class="content-title">Offers</h2>
+                <div>
+                    <a href="createoffer" class="btn btn-primary"><i class="material-icons md-plus"></i> Create </a>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-lg-4 col-md-6 me-auto">
+                            <input type="text" placeholder="Search..." class="form-control">
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-6">
+                           <select class="form-select" id="filterSelect">
+                              <option value="all"style="display:none;">status</option>
+                              <option value="all">All</option>
+                              <option value="listed">listed</option>
+                              <option value="unlisted">unlisted</option>
+                              
+                          </select>
+                            
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-6">
+                            <select class="form-select" id="perPageSelect" name="perPage">
+                                <option value="5"style="display:none;">Show</option>
+                                <option value="10">Show 10</option>
+                                <option value="20">Show 20</option>
+                                <option value="<%= totalCount %>">Show All</option>
+                            </select>
+                        </div>
+                    </div>
+                </header>
+            
+        <div class="card-body">
+                   
+        <table id="products" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Offer Name</th>
+                <th scope="col">Offer On</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Maximum Redeemable Amount</th>
+                <th scope="col">Offer Starts at</th>
+                <th scope="col">Offer ends at</th>
+                <th scope="col">Offered Product/Category</th>
+                <th scope="col">Status</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+                
+                <% offer.forEach((offer) => { %>
+                    <tr onclick="window.location.href='/admin/offerEdit?offerId=<%= offer._id %>'">                    
+                      <td><%= offer.name %></td>
+                      <td><%= offer.discountOn %></td>
+                      <td>
+                        <% if (offer.discountType === 'fixed Amount') { %>
+                            ₹<%= offer.discountValue %>
+                          <% } else { %>
+                            <%= offer.discountValue %>%
+                          <% } %></td>
+                      <td> <%= offer.maxRedeemableAmt %></td>
+                      <td><%= new Date(offer.startDate).toLocaleDateString() %>  </td>
+                <td><%= new Date(offer.endDate ).toLocaleDateString() %> </td>
+
+                      <td style="width: 250px;"><%if(offer.discountOn=='product'){%> 
+                         <%= offer.discountedProduct.name.slice(0, 70) + '...'  %><%} else { %>
+                            <%= offer.discountedCategory?.category %> <% } %> 
+                        </td>
+
+                      
+                        <td class="align-middle">
+                          <div class="col-lg-2 col-sm-2 col-4 col-status">
+                              <a href="#" class="unlist-link" data-coupon-id="<%= offer._id.toString() %>">
+                                  <span class="badge rounded-pill <%= offer.is_Listed ? 'alert-danger' : 'alert-success' %>">
+                                      <%= offer.is_Listed ? 'unlisted' : 'listed' %>
+                                  </span>
+                              </a>
+                          </div>     
+                      </td>
+
+                       
+                    
+                    </tr>
+                    <% }); %>
+
+            
+            </tbody>
+          </table>
+          
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+         
+            <div class="pagination-area mt-30 mb-50" style="display: flex; justify-content: center;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                      <% if (currentPage > 1) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= currentPage - 1 %>"><</a>
+                        </li>
+                      <% } %>
+                  
+                      <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                        </li>
+                      <% } %>
+                  
+                      <% if (currentPage < totalPages) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= currentPage + 1 %>">></a>
+                        </li>
+                      <% } %>
+                 
+                        
+                    </ul>
+                </nav>
+            </div>
+        </section>
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©,XodeyoDesigns.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="adminAssets/js/vendors/select2.min.js"></script>
+    <script src="adminAssets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="adminAssets/js/main.js" type="text/javascript"></script>
+
+
+    <script>
+        function displayImage() {
+          var input = document.getElementById('file-input');
+          var preview = document.getElementById('previewImage');
+    
+          // Ensure that a file was selected
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+              // Set the source of the image to the uploaded file
+              preview.src = e.target.result;
+              // Make the image visible
+              preview.style.display = 'block';
+            };
+    
+            // Read the file as a data URL
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+    
+    <script> // list unlist-------------------------------
+      document.addEventListener('DOMContentLoaded', () => {
+          const unlistLinks = document.querySelectorAll('.unlist-link');
+      
+          unlistLinks.forEach(link => {
+              link.addEventListener('click', async (event) => {
+                  event.preventDefault();
+      
+                  const couponId = link.getAttribute('data-coupon-id');
+                  const response = await fetch(`/admin/unlistoffer?id=${couponId}`, {
+                      method: 'PUT',
+                  });
+      
+                  if (response.ok) {
+                      const data = await response.json();
+                      if (data.success) {
+                          // Toggle the badge class and update the text without refreshing the page
+                          const badge = link.querySelector('.badge');
+                          badge.classList.toggle('alert-success');
+                          badge.classList.toggle('alert-danger');
+      
+                          // Update the text based on the current color
+                          badge.innerText = badge.classList.contains('alert-success') ? 'listed' : 'unlisted';
+                      } else {
+                          console.error('Failed to update coupon listing status');
+                          // Handle the case where the update fails
+                      }
+                  } else {
+                      console.error('Failed to communicate with the server');
+                      // Handle the case where the server request fails
+                  }
+              });
+          });
+      });
+      </script>
+
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html>

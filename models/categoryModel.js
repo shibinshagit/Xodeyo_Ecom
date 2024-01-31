@@ -5,9 +5,7 @@ const categorySchema = new mongoose.Schema({
     description: { type: String, required: true },
     image: { type: String, required: true },
     isListed: { type: Boolean, default: true },
-    discountPercentage: String,
-    startDate: Date,
-    endDate: Date,
+    createdAt: { type: Date, default: Date.now },
     discountStatus: Boolean,
 });
 

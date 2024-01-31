@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="adminAssets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="adminAssets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <%-include('../partials/adminSideView.ejs')%>
+    <main class="main-wrap">
+        <%-include('../partials/adminHeader.ejs')%>
+        <section class="content-main">
+            <div class="row">
+
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Create New Banner</h2>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+
+                            <form action=""  method="post" enctype="multipart/form-data">
+                                <div class="col-lg-12">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h4>Banner Image</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-upload">
+                                                <label for="file-input">
+                                                    <img id="previewImage" src="assets/imgs/theme/dropHere.jpg" alt="Upload">
+                                                </label>
+                                                <input name="file" id="file-input" accept="image/*" class="form-control" type="file" style="display: none;" onchange="displayImage()">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Head</label>
+                                    <input type="text" name="head" placeholder="Type here" class="form-control" id="product_name">
+                                    <% if (typeof message !=='undefined') { %>
+                                        <p style="color: rgb(0, 128, 85);"><%= message %></p>
+                                      <% } %>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Sub Head</label>
+                                    <textarea name="subHead" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Main Head</label>
+                                    <textarea name="mainHead" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Note</label>
+                                    <textarea name="note" placeholder="Type here" class="form-control" rows="4"></textarea>
+                                </div>
+                                  <div class="row">
+                                    <div class="col-lg-4">
+
+                                        <div class="mb-4">
+                                            <label class="form-label">Which Position</label>
+                                            <div class="row gx-2">
+                                                <select name="position" class="form-select">
+                                                    <option value="0" style="display:none;">Select Position</option>
+                                                    <option value="1">Position 1</option>
+                                                    <option value="2">Position 2</option>
+                                                    <!-- Add more options as needed -->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                 
+
+                                </div>
+                           
+                                    <button type="submit" class="btn btn-md rounded font-sm hover-up float-end">Publish</button>
+                              
+                            </form>
+
+
+
+                        </div>
+                    </div> <!-- card end// -->
+                </div>
+
+
+                
+                
+                
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©,XodeyoDesigns.
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="adminAssets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="adminAssets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="adminAssets/js/vendors/select2.min.js"></script>
+    <script src="adminAssets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="adminAssets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="adminAssets/js/main.js" type="text/javascript"></script>
+
+
+    <script>
+        function displayImage() {
+          var input = document.getElementById('file-input');
+          var preview = document.getElementById('previewImage');
+    
+          // Ensure that a file was selected
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+              // Set the source of the image to the uploaded file
+              preview.src = e.target.result;
+              // Make the image visible
+              preview.style.display = 'block';
+            };
+    
+            // Read the file as a data URL
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+    
+
+
+
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html>

@@ -1,3 +1,148 @@
+// updaates---------------------------------------------
+
+// cart-delete=-==--=--=-=-=-=-=-
+async function deleteCartItem(productId) {
+    try {
+       
+      
+      const response = await fetch(`/deleteCart?id=${productId}`, {
+        method: 'DELETE', // Use the appropriate HTTP method (e.g., DELETE) based on your server implementation
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if required
+        },
+        // You can include a request body if needed
+        // body: JSON.stringify({ /* your data here */ }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        console.log('Item deleted successfully');
+        Swal.fire({
+            icon: 'delete',
+            title: 'Product deleted',
+            text: 'Your product has been deleted from the cart.',
+        }).then(() => {
+            // Reload the page
+            location.reload();
+        });
+         
+      } else {
+        console.error('Error deleting item:', data.error);
+        // Handle the error, show a message, etc.
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle unexpected errors
+    }
+  }
+
+// dltwishitem-=-==--=--=-=-=-=-=-
+async function dltwishitem(productId) {
+    try {
+       
+      
+      const response = await fetch(`/dltwishitem?id=${productId}`, {
+        method: 'DELETE', // Use the appropriate HTTP method (e.g., DELETE) based on your server implementation
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if required
+        },
+        // You can include a request body if needed
+        // body: JSON.stringify({ /* your data here */ }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        Swal.fire({
+            icon: 'delete',
+            title: 'Product deleted',
+            text: 'Your product has been removed from the wishlist',
+        }).then(() => {
+            // Reload the page
+            location.reload();
+        });
+         
+      } else {
+        console.error('Error deleting item:', data.error);
+        // Handle the error, show a message, etc.
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle unexpected errors
+    }
+  }
+
+// copyReferralCodeToClipboard=-==--=--=-=-=-=-=-
+
+    function copyReferralCodeToClipboard() {
+        // Get the text content of the referral code
+        var referralCode = document.getElementById('referralCode').innerText;
+
+        // Create a temporary textarea element and set its value to the referral code
+        var tempTextArea = document.createElement('textarea');
+        tempTextArea.value = referralCode;
+
+        // Append the textarea to the document
+        document.body.appendChild(tempTextArea);
+
+        // Select the text inside the textarea
+        tempTextArea.select();
+        tempTextArea.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the selected text to the clipboard
+        document.execCommand('copy');
+
+        // Remove the temporary textarea from the document
+        document.body.removeChild(tempTextArea);
+
+        // Use SweetAlert for a simple and modern look
+        Swal.fire({
+            title: 'Copied!',
+            text: 'Referral code copied to clipboard: ' + referralCode,
+            icon: 'success',
+            timer: 1500, // Display alert for 1.5 seconds
+            showConfirmButton: false
+        });
+    }
+// ===============================================
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function ($) {
     "use strict";
     // Page loading
@@ -343,21 +488,70 @@
         Price range
     --------------------- */
     var sliderrange = $('#slider-range');
-    var amountprice = $('#amount');
-    $(function() {
-        sliderrange.slider({
-            range: true,
-            min: 16,
-            max: 400,
-            values: [0, 300],
-            slide: function(event, ui) {
-                amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
-        amountprice.val("$" + sliderrange.slider("values", 0) +
-            " - $" + sliderrange.slider("values", 1));
-    }); 
-        
+var amountprice = $('#amount');
+
+$(function() {
+    sliderrange.slider({
+        range: true,
+        min: 199,
+        max: 1999,
+        values: [199, 1999],
+        slide: function(event, ui) {
+            amountprice.val("price:₹" + ui.values[0] + " - ₹" + ui.values[1]);
+
+            // Get the existing parameters from the URL
+            var url = window.location.href.split('?')[0]; // Get the base URL
+            var existingParams = new URLSearchParams(window.location.search);
+
+            // Set the new slider values as parameters
+            existingParams.set('min', ui.values[0]);
+            existingParams.set('max', ui.values[1]);
+
+            // Construct the new URL with both category and slider parameters
+            var newUrl = url + '?' + existingParams.toString();
+
+            // Update the window location with the new URL
+            window.history.replaceState({}, document.title, newUrl);
+            window.location.reload();
+        }
+    });
+
+    amountprice.val("price:₹" + sliderrange.slider("values", 0) +
+        " - ₹" + sliderrange.slider("values", 1));
+});
+var sliderrange = $('#slider-range');
+var amountprice = $('#amount');
+
+$(function() {
+    sliderrange.slider({
+        range: true,
+        min: 199,
+        max: 1999,
+        values: [199, 1999],
+        slide: function(event, ui) {
+            amountprice.val("price:₹" + ui.values[0] + " - ₹" + ui.values[1]);
+
+            // Get the existing parameters from the URL
+            var url = window.location.href.split('?')[0]; // Get the base URL
+            var existingParams = new URLSearchParams(window.location.search);
+
+            // Set the new slider values as parameters
+            existingParams.set('min', ui.values[0]);
+            existingParams.set('max', ui.values[1]);
+
+            // Construct the new URL with both category and slider parameters
+            var newUrl = url + '?' + existingParams.toString();
+
+            // Update the window location with the new URL
+            window.history.replaceState({}, document.title, newUrl);
+            window.location.reload();    
+        }
+    });
+
+    amountprice.val("price:₹" + sliderrange.slider("values", 0) +
+        " - ₹" + sliderrange.slider("values", 1));
+});
+    
     /*-------------------------------
         Sort by active
     -----------------------------------*/

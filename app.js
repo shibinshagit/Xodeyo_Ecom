@@ -17,6 +17,6 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => app.listen(3000, () => console.log('database connected, server is running')))
   .catch((err) => console.error('Error connecting to the database:', err));
  
-
-  app.use('/',userRoute)
+  
+  app.use('/',userRoute) 
   app.use('/admin',adminRoute) 

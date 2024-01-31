@@ -16,7 +16,7 @@ const isLogin = async (req, res, next) => {
       }
     } catch (error) {
       console.error(error.message);
-      next(error);
+      next(error);       
     }
   };
   
